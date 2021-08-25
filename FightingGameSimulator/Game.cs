@@ -80,7 +80,7 @@ namespace FightingGameSimulator
             monster1.attack = 15.0f;
 
             //Monster 2 
-            monster2.name = "Wumpus";
+            monster2.name = "Thwompus";
             monster2.health = 15.0f;
             monster2.defense = 10.0f;
             monster2.attack = 15.0f;
@@ -94,13 +94,17 @@ namespace FightingGameSimulator
             Console.Clear();
 
             //Monster 1 Attacks Monster 2
-            float damagetaken = CalculateDamage(monster1;
-            monster2Health -= damagetaken;
+            float damagetaken = CalculateDamage(monster1);
+            monster1.health -= damagetaken;
             Console.WriteLine(monster1Name + " Has Taken " + damagetaken + " Damage" );
 
             // Damage Calculation Between Monster 1 Attacking Monster 2  
             damagetaken = CalculateDamage(monster2);
-            monster2Health -= damagetaken;
+            monster2.health -= damagetaken;
+            Console.WriteLine(monster2Name + " Has Taken " + damagetaken + " Damage");
+
+            Console.ReadKey();
+            Console.Clear();
 
             //Monster 1 Attacks Monster 2
             //float damagetaken = CalculateDamage(monster1Attack, monster2Defense);
@@ -113,10 +117,7 @@ namespace FightingGameSimulator
 
 
 
-            Console.WriteLine(monster2Name + " Has Taken " + damagetaken + " Damage");
-
-            Console.ReadKey();
-            Console.Clear();
+            
 
             //Prints Monster 1 Stats 
             //PrintStats(monster1Name, monster1Attack, monster1Defense, monster1Health);
