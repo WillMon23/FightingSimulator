@@ -71,6 +71,19 @@ namespace FightingGameSimulator
                 "\nDefence: " + monster.defense +
                 "\nHealth: " + monster.health);
         }
+
+        // Set Monsters To Attack Eachother
+        float CalculateDamage(Monster attack, Monster defender )
+        {
+            return attack.attack - defender.defense;
+        }
+
+        float Fight(ref Monster attacker, ref Monster defender)
+        {
+            float damagetaken = CalculateDamage(attacker, defender);
+            defender.health -= damagetaken;
+            return damagetaken;
+        }
         public void Run()
         {
             //Monster 1 
@@ -94,14 +107,17 @@ namespace FightingGameSimulator
             Console.Clear();
 
             //Monster 1 Attacks Monster 2
-            float damagetaken = CalculateDamage(monster1);
+            float damagetaken = Fight(ref monster1, ref monster2);
             monster1.health -= damagetaken;
-            Console.WriteLine(monster1Name + " Has Taken " + damagetaken + " Damage" );
+            //monster1.health -= damagetaken;
+            // Displaying Damage taken to Monster1
+            Console.WriteLine(monster1.name + " Has Taken " + monster1.health + " Damage" );
 
             // Damage Calculation Between Monster 1 Attacking Monster 2  
-            damagetaken = CalculateDamage(monster2);
+            damagetaken = Fight(ref monster2, ref monster1);
             monster2.health -= damagetaken;
-            Console.WriteLine(monster2Name + " Has Taken " + damagetaken + " Damage");
+            // Displaying Damage taken to Monster2
+            Console.WriteLine(monster2.name + " Has Taken " + monster2.health + " Damage");
 
             Console.ReadKey();
             Console.Clear();
