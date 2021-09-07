@@ -43,9 +43,9 @@ namespace FightingGameSimulator
         void PrintStatStruck(Monster monster)
         {
             Console.WriteLine("Name: " + monster.name +
-                "\nAttack: " + monster.attack +
+                "\nHealth: " + monster.health +
                 "\nDefence: " + monster.defense +
-                "\nHealth: " + monster.health);
+                "\nAttack: " + monster.attack);
             Console.ReadKey();
         }
 
@@ -66,7 +66,7 @@ namespace FightingGameSimulator
         string StartBattle (ref Monster monster1, ref Monster monster2)
         {
             string matchResult = "No Contest";
-            while (monster1.health < 0 && monster2.health < 0)
+            while (monster1.health > 0 && monster2.health > 0)
             {
 
                 //Prints Monster 1 Stats 
@@ -133,7 +133,7 @@ namespace FightingGameSimulator
             unclePhil.name = "Uncle Phil";
             unclePhil.health = 1.0f;
             unclePhil.defense = 0f;
-            unclePhil.attack = 1000000000f;
+            unclePhil.attack = 100f;
 
             //Set starting figters 
             currentMonster1 = GetMonster(currentNumberIndex);
