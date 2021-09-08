@@ -149,6 +149,7 @@ namespace FightingGameSimulator
             currentNumberIndex++;
             currentMonster2 = GetMonster(currentNumberIndex);
         }
+
         /// <summary>
         /// A Function that mimmics a List 
         /// cycling through the ammount of monster within hat list 
@@ -240,7 +241,7 @@ namespace FightingGameSimulator
                     
 
             } 
-
+            /*
             if (currentScene == 0)
                 DisplayMainMenu();
 
@@ -252,7 +253,7 @@ namespace FightingGameSimulator
             }
 
             else if (currentScene == 2)
-                DisplayRestartMenu();
+                DisplayRestartMenu(); */
         }
 
 
@@ -392,13 +393,18 @@ namespace FightingGameSimulator
             Console.Clear();
         }
 
+        void End()
+        {
+            Console.WriteLine("Good Bye Fran");
+        }
         public void Run()
         {
             Start();
+
             while (!gameOver)
-            {
                 Update();
-            }
+
+            End();
         }
     }
 }
