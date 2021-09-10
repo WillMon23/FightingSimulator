@@ -22,6 +22,8 @@ namespace FightingGameSimulator
         //Monste 4
         Monster unclePhil;
 
+        Monster[] monsters;
+
         bool gameOver = false;
         Monster currentMonster1;
         Monster currentMonster2;
@@ -114,7 +116,6 @@ namespace FightingGameSimulator
         }
         void Start()
         {
-
             wumpus.name = "Wumpus";
             wumpus.health = 20.0f;
             wumpus.defense = 5.0f;
@@ -138,6 +139,8 @@ namespace FightingGameSimulator
             unclePhil.defense = 10.0f;
             unclePhil.attack = 100f;
 
+            monsters = new Monster[] { wumpus, thwompus, backUpWumpus, unclePhil };
+
             RestartCurrentMonsters();
         }
 
@@ -145,9 +148,9 @@ namespace FightingGameSimulator
         {
             currentNumberIndex = 0;
             //Set starting figters 
-            currentMonster1 = GetMonster(currentNumberIndex);
+            currentMonster1 = monsters[currentNumberIndex];
             currentNumberIndex++;
-            currentMonster2 = GetMonster(currentNumberIndex);
+            currentMonster2 = monsters[currentNumberIndex];
         }
 
         /// <summary>
@@ -190,30 +193,47 @@ namespace FightingGameSimulator
         /// if it has died. Ends rhe game if all figters in the list have been used.
         /// </summary>
         void UpdateCurrentMonsters()
-        {   
+        {
+            if (currentNumberIndex >= monsters.Length)
+            {
+                // ends game 
+                currentScene = 2;
+            }
             // If monster 1 died
             if (currentMonster1.health <= 0)
             {
-
                 // increment the current monster index and swap out the monster
                 currentNumberIndex++;
-                currentMonster1 = GetMonster(currentNumberIndex);
+
+                if (TryEndSimulation())
+                    return;
+
+                currentMonster1 = monsters[currentNumberIndex];
             }
             // If monster 2 died 
             if (currentMonster2.health <= 0)
             {
                 // increment the current monster index and swap out the monster
                 currentNumberIndex++;
-                currentMonster2 = GetMonster(currentNumberIndex);
-            }
-            // If its not ether of them or the index went out of bounds  
-            if (currentMonster2.name == "None" || currentMonster1.name == "None" && currentNumberIndex >= 4)
-            {
-                // ends game 
 
-                currentScene = 2;
+                if (TryEndSimulation())
+                    return;
+
+                currentMonster2 = monsters[currentNumberIndex];
+
             }
-            
+                // If its not ether of them or the index went out of bounds  
+
+        }
+
+        bool TryEndSimulation()
+        {
+            bool simulationOver = currentNumberIndex >= monsters.Length;
+
+            if (simulationOver)
+                currentScene = 2;
+
+            return simulationOver;
         }
 
         void UpdateCurrentSceen()
@@ -379,7 +399,6 @@ namespace FightingGameSimulator
             PrintStatStruck(currentMonster1);
             //prints Monster 2 Stats 
             PrintStatStruck(currentMonster2);
-
 
             Console.ReadKey();
         }
